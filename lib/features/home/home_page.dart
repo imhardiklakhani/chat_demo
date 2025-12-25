@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_sivi/features/history/data/repository/history_repository.dart';
+import 'package:my_sivi/features/history/presentation/cubit/history_cubit.dart';
+import 'package:my_sivi/features/history/presentation/history_page.dart';
 
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_strings.dart';
@@ -56,6 +59,9 @@ class HomePage extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => HomeCubit()),
         BlocProvider(create: (_) => UsersCubit()..loadUsers()),
+        BlocProvider(
+          create: (_) => HistoryCubit(HistoryRepository())..loadHistory(),
+        ),
       ],
       child: BlocBuilder<HomeCubit, int>(
         builder: (context, selectedIndex) {
@@ -91,14 +97,13 @@ class HomePage extends StatelessWidget {
                     ),
                   ];
                 },
-                body: selectedIndex == 0
-                    ? const UsersPage()
-                    : const Center(
-                        child: Text(
-                          AppStrings.historyPlaceholder,
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ),
+                body: IndexedStack(
+                  index: selectedIndex,
+                  children: const [
+                    UsersPage(),
+                    HistoryPage(),
+                  ],
+                ),
               ),
             ),
           );
