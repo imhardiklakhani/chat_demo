@@ -11,4 +11,9 @@ class AppColors {
 
   static const textSelected = Colors.white;
   static const textUnselected = Colors.black;
+
+  // Bottom Navigation
+  static const bottomBarBackground = Colors.white;
+  static const bottomBarSelected = Colors.blue;
+  static const bottomBarUnselected = Colors.grey;
 }
