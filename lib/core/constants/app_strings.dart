@@ -9,4 +9,6 @@ class AppStrings {
   static const home = 'Home';
   static const others = 'Others';
   static const settings = 'Settings';
+  static const addUser = 'Add User';
+  static const userAdded = 'User added';
 }

@@ -16,4 +16,7 @@ class AppColors {
   static const bottomBarBackground = Colors.white;
   static const bottomBarSelected = Colors.blue;
   static const bottomBarUnselected = Colors.grey;
+
+  static const fabBackground = Colors.blue;
+  static const fabIcon = Colors.white;
 }
