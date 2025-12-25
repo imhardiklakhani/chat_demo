@@ -59,45 +59,47 @@ class HomePage extends StatelessWidget {
       ],
       child: BlocBuilder<HomeCubit, int>(
         builder: (context, selectedIndex) {
-          return Scaffold(
-            floatingActionButton: selectedIndex == 0
-                ? FloatingActionButton(
-                    backgroundColor: AppColors.fabBackground,
-                    onPressed: () => _showAddUserDialog(context),
-                    child: const Icon(Icons.add, color: AppColors.fabIcon),
-                  )
-                : null,
-            body: NestedScrollView(
-              headerSliverBuilder: (context, innerBoxIsScrolled) {
-                return [
-                  SliverAppBar(
-                    backgroundColor: Colors.transparent,
-                    scrolledUnderElevation: 0,
-                    elevation: 0,
-                    floating: true,
-                    snap: true,
-                    pinned: false,
-                    bottom: PreferredSize(
-                      preferredSize: const Size.fromHeight(0),
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: AppBarSwitcher(
-                          selectedIndex: selectedIndex,
-                          onChanged: context.read<HomeCubit>().changeTab,
+          return SafeArea(
+            child: Scaffold(
+              floatingActionButton: selectedIndex == 0
+                  ? FloatingActionButton(
+                      backgroundColor: AppColors.fabBackground,
+                      onPressed: () => _showAddUserDialog(context),
+                      child: const Icon(Icons.add, color: AppColors.fabIcon),
+                    )
+                  : null,
+              body: NestedScrollView(
+                headerSliverBuilder: (context, innerBoxIsScrolled) {
+                  return [
+                    SliverAppBar(
+                      backgroundColor: Colors.transparent,
+                      scrolledUnderElevation: 0,
+                      elevation: 0,
+                      floating: true,
+                      snap: true,
+                      pinned: false,
+                      bottom: PreferredSize(
+                        preferredSize: const Size.fromHeight(0),
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: AppBarSwitcher(
+                            selectedIndex: selectedIndex,
+                            onChanged: context.read<HomeCubit>().changeTab,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ];
-              },
-              body: selectedIndex == 0
-                  ? const UsersPage()
-                  : const Center(
-                      child: Text(
-                        AppStrings.historyPlaceholder,
-                        style: TextStyle(fontSize: 18),
+                  ];
+                },
+                body: selectedIndex == 0
+                    ? const UsersPage()
+                    : const Center(
+                        child: Text(
+                          AppStrings.historyPlaceholder,
+                          style: TextStyle(fontSize: 18),
+                        ),
                       ),
-                    ),
+              ),
             ),
           );
         },

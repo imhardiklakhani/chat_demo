@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../core/models/user_model.dart';
+import 'package:my_sivi/core/navigation/app_navigator.dart';
+
 import 'users_cubit.dart';
 import 'users_state.dart';
 
@@ -29,6 +30,9 @@ class UsersPage extends StatelessWidget {
               final user = users[index];
 
               return ListTile(
+                onTap: () {
+                  AppNavigator.openChat(context, user);
+                },
                 leading: Stack(
                   children: [
                     CircleAvatar(
@@ -36,9 +40,7 @@ class UsersPage extends StatelessWidget {
                       backgroundImage: user.imageUrl.isNotEmpty
                           ? NetworkImage(user.imageUrl)
                           : null,
-                      child: user.imageUrl.isEmpty
-                          ? Text(user.initials)
-                          : null,
+                      child: user.imageUrl.isEmpty ? Text(user.initials) : null,
                     ),
                     Positioned(
                       bottom: 0,

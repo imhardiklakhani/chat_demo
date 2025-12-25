@@ -19,4 +19,6 @@ class AppColors {
 
   static const fabBackground = Colors.blue;
   static const fabIcon = Colors.white;
+  static const Color senderBubble = Color(0xFFDCF8C6);   // WhatsApp-like green
+  static const Color receiverBubble = Color(0xFFF1F0F0); // Light grey
 }
