@@ -24,6 +24,57 @@ class _UsersPageState extends State<UsersPage>
     with AutomaticKeepAliveClientMixin {
   late final ScrollController _controller;
 
+
+
+  void _showAddUserDialog(BuildContext context) {
+    final controller = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Add User'),
+        content: TextField(
+          controller: controller,
+          decoration: const InputDecoration(
+            hintText: 'Enter user name',
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              final name = controller.text.trim();
+              if (name.isEmpty) return;
+
+              context.read<UsersCubit>().addLocalUser(name);
+              Navigator.pop(context);
+
+
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                if (_controller.hasClients) {
+                  _controller.animateTo(
+                    0,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeOut,
+                  );
+                }
+              });
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('User added: $name')),
+              );
+            },
+            child: const Text('Add User'),
+          ),
+        ],
+      ),
+    );
+  }
+
+
   @override
   void initState() {
     super.initState();
@@ -53,19 +104,25 @@ class _UsersPageState extends State<UsersPage>
   }
 
   Widget _renderBody() {
-    return BlocBuilder<UsersCubit, UsersState>(
-      builder: (context, state) {
-        if (state is UsersLoading || state is UsersInitial) {
-          return const Center(child: CircularProgressIndicator());
-        }
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _showAddUserDialog(context),
+        child: const Icon(Icons.add),
+      ),
+      body: BlocBuilder<UsersCubit, UsersState>(
+        builder: (context, state) {
+          if (state is UsersLoading || state is UsersInitial) {
+            return const Center(child: CircularProgressIndicator());
+          }
 
-        if (state is UsersError) {
-          return Center(child: Text(state.message));
-        }
+          if (state is UsersError) {
+            return Center(child: Text(state.message));
+          }
 
-        final users = (state as UsersSuccess).users;
-        return _renderUserList(users);
-      },
+          final users = (state as UsersSuccess).users;
+          return _renderUserList(users);
+        },
+      ),
     );
   }
 
