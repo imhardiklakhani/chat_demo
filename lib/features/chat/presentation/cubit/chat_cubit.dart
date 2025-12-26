@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_sivi/core/network/api_constants.dart';
 
-import '../../core/network/api_client.dart';
-import 'chat_message_model.dart';
+import '../../../../core/network/api_client.dart';
+import '../../data/models/chat_message_model.dart';
 import 'chat_state.dart';
 
 class ChatCubit extends Cubit<ChatState> {

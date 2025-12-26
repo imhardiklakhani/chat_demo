@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_sivi/core/models/user_model.dart';
+import 'package:my_sivi/features/chat/presentation/cubit/chat_cubit.dart';
+import 'package:my_sivi/features/users/data/models/user_model.dart';
 
-import 'chat_cubit.dart';
-import 'chat_state.dart';
-import 'widgets/chat_input_bar.dart';
-import 'widgets/chat_message_bubble.dart';
+import '../cubit/chat_state.dart';
+import '../widgets/chat_input_bar.dart';
+import '../widgets/chat_message_bubble.dart';
 
 class ChatPage extends StatefulWidget {
   final UserModel user;
