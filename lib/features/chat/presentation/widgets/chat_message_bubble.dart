@@ -31,8 +31,9 @@ class ChatMessageBubble extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                 decoration: BoxDecoration(
-                  color:
-                      isSender ? AppColors.senderBubble : AppColors.receiverBubble,
+                  color: isSender
+                      ? AppColors.senderBubble
+                      : AppColors.receiverBubble,
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: buildMessageText(context, message.text, isSender)),
@@ -55,47 +56,32 @@ class ChatMessageBubble extends StatelessWidget {
   }
 
   Widget buildMessageText(BuildContext context, String text, bool isSender) {
-    final words = text.split(' ');
+    return SelectableText(
+      text,
+      style: TextStyle(
+        fontSize: 16,
+        color:
+            isSender ? AppColors.senderTextColor : AppColors.receiverTextColor,
+      ),
+      onSelectionChanged: (selection, cause) async {
+        if (cause != SelectionChangedCause.longPress) return;
 
-    return Wrap(
-      children: words.map((word) {
-        return GestureDetector(
-          onLongPress: () {
-            final cleanWord = word.replaceAll(RegExp(r'[^\w]'), '');
+        final selectedWord = selection.textInside(text).trim();
+        if (selectedWord.isEmpty) return;
 
-            if (cleanWord.isEmpty) return;
-
-            context.read<DictionaryCubit>().lookupWord(cleanWord);
-
-            showModalBottomSheet(
-              context: context,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(16),
-                ),
-              ),
-              builder: (sheetContext) {
-                return BlocProvider.value(
-                  value: context.read<DictionaryCubit>(),
-                  child: const WordMeaningBottomSheet(),
-                );
-              },
-            );
-          },
-          child: Padding(
-            padding: const EdgeInsets.only(right: 4, bottom: 4),
-            child: Text(
-              '$word ',
-              style: TextStyle(
-                fontSize: 16,
-                color: isSender
-                    ? AppColors.senderTextColor
-                    : AppColors.receiverTextColor,
-              ),
-            ),
+        context.read<DictionaryCubit>().lookupWord(selectedWord);
+        await Future.delayed(const Duration(milliseconds: 1000));
+        await showModalBottomSheet(
+          context: context,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+          ),
+          builder: (_) => BlocProvider.value(
+            value: context.read<DictionaryCubit>(),
+            child: const WordMeaningBottomSheet(),
           ),
         );
-      }).toList(),
+      },
     );
   }
 }
