@@ -1,4 +1,4 @@
-import 'chat_message_model.dart';
+import '../../data/models/chat_message_model.dart';
 
 abstract class ChatState {
   const ChatState();

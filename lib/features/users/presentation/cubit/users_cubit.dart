@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../core/api/users_api.dart';
-import '../../core/models/user_model.dart';
+import '../../../../core/api/users_api.dart';
+import '../../data/models/user_model.dart';
 import 'users_state.dart';
 
 class UsersCubit extends Cubit<UsersState> {
