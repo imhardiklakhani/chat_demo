@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../../features/users/data/models/user_model.dart';
+import '../constants/app_strings.dart';
 import '../network/api_constants.dart';
 
 class UsersApi {
@@ -10,7 +11,7 @@ class UsersApi {
     );
 
     if (response.statusCode != 200) {
-      throw Exception('Failed to load users');
+      throw Exception(AppStrings.failedToLoadUsers);
     }
 
     final data = jsonDecode(response.body);

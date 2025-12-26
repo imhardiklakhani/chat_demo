@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/constants/app_strings.dart';
 import '../../data/repository/history_repository.dart';
 import 'history_state.dart';
 
@@ -14,7 +15,7 @@ class HistoryCubit extends Cubit<HistoryState> {
       final items = await _repository.fetchHistory();
       emit(HistorySuccess(items));
     } catch (_) {
-      emit(const HistoryError('Failed to load history'));
+      emit(const HistoryError(AppStrings.failedToLoadHistory));
     }
   }
 }

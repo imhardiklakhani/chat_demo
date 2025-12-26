@@ -1,3 +1,5 @@
+import '../../../../core/constants/app_strings.dart';
+
 class UserModel {
   final int id;
   final String firstName;
@@ -39,8 +41,9 @@ class UserModel {
   }
 
   static String _randomLastActive() {
-    final values = ['2m ago', '5m ago', '1h ago', '2h ago', 'Yesterday'];
+    final values = AppStrings.userLastActiveOptions;
     return values[
-    DateTime.now().millisecondsSinceEpoch % values.length];
+      DateTime.now().millisecondsSinceEpoch % values.length
+    ];
   }
 }

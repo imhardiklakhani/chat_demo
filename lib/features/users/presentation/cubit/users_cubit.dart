@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/constants/app_strings.dart';
 import '../../../../core/api/users_api.dart';
 import '../../data/models/user_model.dart';
 import 'users_state.dart';
@@ -12,7 +13,7 @@ class UsersCubit extends Cubit<UsersState> {
       final users = await UsersApi.fetchUsers();
       emit(UsersSuccess(users));
     } catch (e) {
-      emit(UsersError('Failed to load users'));
+      emit(UsersError(AppStrings.failedToLoadUsers));
     }
   }
 
@@ -29,7 +30,7 @@ class UsersCubit extends Cubit<UsersState> {
       lastName: lastName,
       imageUrl: '',
       isOnline: true,
-      lastActive: 'Just now',
+      lastActive: AppStrings.justNow,
     );
 
     final currentUsers = List<UserModel>.from(

@@ -4,6 +4,7 @@ import 'package:my_sivi/features/chat/presentation/cubit/dictionary_cubit.dart';
 import 'package:my_sivi/features/chat/presentation/widgets/word_meaning_bottom_sheet.dart';
 
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_strings.dart';
 import '../../data/models/chat_message_model.dart';
 
 class ChatMessageBubble extends StatelessWidget {
@@ -30,14 +31,14 @@ class ChatMessageBubble extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                 decoration: BoxDecoration(
-                  color: isSender
-                      ? AppColors.senderBubble
-                      : AppColors.receiverBubble,
+                  color:
+                      isSender ? AppColors.senderBubble : AppColors.receiverBubble,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: buildMessageText(context, message.text)),
+                child: buildMessageText(context, message.text, isSender)),
           ),
-          if (isSender) _avatar(context, isSender, 'Y'),
+          if (isSender)
+            _avatar(context, isSender, AppStrings.currentUserInitial),
         ],
       ),
     );
@@ -53,7 +54,7 @@ class ChatMessageBubble extends StatelessWidget {
     );
   }
 
-  Widget buildMessageText(BuildContext context, String text) {
+  Widget buildMessageText(BuildContext context, String text, bool isSender) {
     final words = text.split(' ');
 
     return Wrap(
@@ -85,7 +86,12 @@ class ChatMessageBubble extends StatelessWidget {
             padding: const EdgeInsets.only(right: 4, bottom: 4),
             child: Text(
               '$word ',
-              style: const TextStyle(fontSize: 16),
+              style: TextStyle(
+                fontSize: 16,
+                color: isSender
+                    ? AppColors.senderTextColor
+                    : AppColors.receiverTextColor,
+              ),
             ),
           ),
         );

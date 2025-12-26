@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/constants/app_strings.dart';
+
 class ChatInputBar extends StatefulWidget {
   final void Function(String) onSend;
 
@@ -33,9 +35,10 @@ class _ChatInputBarState extends State<ChatInputBar> {
                 textInputAction: TextInputAction.send,
                 onSubmitted: (_) => _send(),
                 decoration: const InputDecoration(
-                  hintText: 'Type a message',
+                  hintText: AppStrings.typeMessageHint,
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12))),
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                  ),
                   isDense: true,
                 ),
               ),

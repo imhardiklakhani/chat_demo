@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../history/data/repository/history_repository.dart';
+import '../../../history/presentation/cubit/history_cubit.dart';
 import '../../../home/presentation/pages/home_page.dart';
 import '../../../users/presentation/cubit/users_cubit.dart';
-import '../../../history/presentation/cubit/history_cubit.dart';
-import '../../../history/data/repository/history_repository.dart';
 
 class AppShellPage extends StatefulWidget {
   const AppShellPage({super.key});
@@ -28,35 +28,49 @@ class _AppShellPageState extends State<AppShellPage> {
         ),
       ],
       child: Scaffold(
-        body: IndexedStack(
-          index: _currentIndex,
-          children: const [
-            HomePage(),
-            Center(child: Text(AppStrings.others)),
-            Center(child: Text(AppStrings.settings)),
-          ],
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: AppColors.bottomBarBackground,
-          currentIndex: _currentIndex,
-          selectedItemColor: AppColors.bottomBarSelected,
-          unselectedItemColor: AppColors.bottomBarUnselected,
-          onTap: (index) => setState(() => _currentIndex = index),
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: AppStrings.home,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.layers),
-              label: AppStrings.others,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: AppStrings.settings,
-            ),
-          ],
-        ),
+        body: _renderBody(),
+        bottomNavigationBar: _renderBottomNavigationBar(),
+      ),
+    );
+  }
+
+  Widget _renderBody() {
+    return IndexedStack(
+      index: _currentIndex,
+      children: const [
+        HomePage(),
+        Center(child: Text(AppStrings.others)),
+        Center(child: Text(AppStrings.settings)),
+      ],
+    );
+  }
+
+  Widget _renderBottomNavigationBar() {
+    return ClipRRect(
+      borderRadius: const BorderRadius.only(
+        topLeft: Radius.circular(24),
+        topRight: Radius.circular(24),
+      ),
+      child: BottomNavigationBar(
+        backgroundColor: AppColors.bottomBarBackground,
+        currentIndex: _currentIndex,
+        selectedItemColor: AppColors.bottomBarSelected,
+        unselectedItemColor: AppColors.bottomBarUnselected,
+        onTap: (index) => setState(() => _currentIndex = index),
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat_bubble),
+            label: AppStrings.home,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.local_offer_outlined),
+            label: AppStrings.others,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: AppStrings.settings,
+          ),
+        ],
       ),
     );
   }

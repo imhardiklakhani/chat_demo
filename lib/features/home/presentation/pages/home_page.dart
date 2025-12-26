@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/constants/app_strings.dart';
 import '../../../../shared_widgets/appbar_switcher.dart';
 import '../../../history/data/repository/history_repository.dart';
 import '../../../history/presentation/cubit/history_cubit.dart';
@@ -54,52 +53,47 @@ class _HomePageState extends State<HomePage>
           create: (_) => HistoryCubit(HistoryRepository())..loadHistory(),
         ),
       ],
-      child: SafeArea(
-        child: Column(
-          children: [
-            // App Title
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  AppStrings.appTitle,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ),
+      child: _renderBody(),
+    );
+  }
 
-            // Animated Tabs
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 180),
-              height: _showTabs ? 48 : 0,
-              child: ClipRect(
-                child: AppBarSwitcher(
-                  selectedIndex: _tabController.index,
-                  onChanged: (i) => _tabController.animateTo(i),
-                ),
-              ),
-            ),
+  Widget _renderBody() {
+    return SafeArea(
+      child: Column(
+        children: [
+          _renderTabs(),
+          _renderPages(),
+        ],
+      ),
+    );
+  }
 
-            // Pages
-            Expanded(
-              child: IndexedStack(
-                index: _tabController.index,
-                children: [
-                  UsersPage(
-                    onUserScroll: _onScrollDirection,
-                  ),
-                  HistoryPage(
-                    onUserScroll: _onScrollDirection,
-                  ),
-                ],
-              ),
-            ),
-          ],
+  Widget _renderTabs() {
+    return AnimatedContainer(
+      margin: const EdgeInsets.symmetric(vertical: 16),
+      duration: const Duration(milliseconds: 180),
+      height: _showTabs ? 48 : 0,
+      child: ClipRect(
+        child: AppBarSwitcher(
+          selectedIndex: _tabController.index,
+          onChanged: (i) => _tabController.animateTo(i),
         ),
+      ),
+    );
+  }
+
+  Widget _renderPages() {
+    return Expanded(
+      child: IndexedStack(
+        index: _tabController.index,
+        children: [
+          UsersPage(
+            onUserScroll: _onScrollDirection,
+          ),
+          HistoryPage(
+            onUserScroll: _onScrollDirection,
+          ),
+        ],
       ),
     );
   }

@@ -1,3 +1,5 @@
+import '../../../../core/constants/app_strings.dart';
+
 class HistoryItemModel {
   final String fullName;
   final String lastMessage;
@@ -15,21 +17,21 @@ class HistoryItemModel {
 
   factory HistoryItemModel.fromApi(Map<String, dynamic> json) {
     final fullName = json['user']['fullName'] as String;
-    final initial = fullName.isNotEmpty ? fullName[0].toUpperCase() : '?';
+    final initial = fullName.isNotEmpty
+        ? fullName[0].toUpperCase()
+        : AppStrings.unknownInitial;
 
     return HistoryItemModel(
       fullName: fullName,
       lastMessage: json['body'] as String,
-      avatarUrl:
-      'https://dummyimage.com/300x300/000/fff&text=$initial',
+      avatarUrl: '${AppStrings.dummyAvatarUrlTemplate}$initial',
       timeLabel: _randomTime(),
       unreadCount: _randomUnread(),
     );
   }
 
   static String _randomTime() {
-    final times = ['2 min ago', '5 min ago', '10 min ago', '1 hour ago'];
-    times.shuffle();
+    final times = List<String>.from(AppStrings.historyTimeOptions)..shuffle();
     return times.first;
   }
 

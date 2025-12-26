@@ -4,13 +4,7 @@ class AppColors {
   AppColors._();
 
   static const primary = Colors.blue;
-
-  static const switcherBackground = Color(0xFFE0E0E0);
-  static const switcherSelected = Colors.blue;
-  static const switcherUnselected = Colors.transparent;
-
-  static const textSelected = Colors.white;
-  static const textUnselected = Colors.black;
+  static const transparent = Colors.transparent;
 
   // Bottom Navigation
   static const bottomBarBackground = Colors.white;
@@ -19,6 +13,11 @@ class AppColors {
 
   static const fabBackground = Colors.blue;
   static const fabIcon = Colors.white;
-  static const Color senderBubble = Color(0xFFDCF8C6);   // WhatsApp-like green
-  static const Color receiverBubble = Color(0xFFF1F0F0); // Light grey
+  static const Color senderBubble = Colors.blueAccent;
+  static final Color receiverBubble = Colors.grey.withAlpha(20);
+  static const onlineStatus = Colors.green;
+  static const partOfSpeechHint = Colors.grey;
+
+  static var senderTextColor = Colors.white;
+  static var receiverTextColor = Colors.black;
 }

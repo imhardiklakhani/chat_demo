@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_sivi/core/network/api_constants.dart';
 
+import '../../../../core/constants/app_strings.dart';
 import '../../../../core/network/api_client.dart';
 import '../../data/models/chat_message_model.dart';
 import 'chat_state.dart';
@@ -70,7 +71,7 @@ class ChatCubit extends Cubit<ChatState> {
         await _fetchReceiverAndEmit(); // retry same ID once
       } else {
         _retrying = false;
-        _errorController.add('Failed to receive message');
+        _errorController.add(AppStrings.failedToReceiveMessage);
       }
     }
   }

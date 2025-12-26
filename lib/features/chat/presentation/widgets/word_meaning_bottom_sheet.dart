@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/dictionary_cubit.dart';
 import '../cubit/dictionary_state.dart';
 
+import '../../../../core/constants/app_colors.dart';
+
 class WordMeaningBottomSheet extends StatelessWidget {
   const WordMeaningBottomSheet({super.key});
 
@@ -49,7 +51,7 @@ class WordMeaningBottomSheet extends StatelessWidget {
                     state.partOfSpeech,
                     style: const TextStyle(
                       fontStyle: FontStyle.italic,
-                      color: Colors.grey,
+                      color: AppColors.partOfSpeechHint,
                     ),
                   ),
                   const SizedBox(height: 12),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../core/constants/app_colors.dart';
 import '../core/constants/app_strings.dart';
 
@@ -17,8 +18,8 @@ class AppBarSwitcher extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: AppColors.switcherBackground,
-        borderRadius: BorderRadius.circular(20),
+        color: AppColors.receiverBubble,
+        borderRadius: BorderRadius.circular(48),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -36,17 +37,18 @@ class AppBarSwitcher extends StatelessWidget {
     return GestureDetector(
       onTap: () => onChanged(index),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        alignment: Alignment.center,
+        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
         decoration: BoxDecoration(
-          color:
-          selected ? AppColors.switcherSelected : AppColors.switcherUnselected,
-          borderRadius: BorderRadius.circular(16),
+          color: selected
+              ? AppColors.senderBubble
+              : AppColors.transparent,
+          borderRadius: BorderRadius.circular(48),
         ),
         child: Text(
           text,
           style: TextStyle(
-            color:
-            selected ? AppColors.textSelected : AppColors.textUnselected,
+            color: selected ? AppColors.senderTextColor : AppColors.receiverTextColor,
             fontWeight: FontWeight.w500,
           ),
         ),
