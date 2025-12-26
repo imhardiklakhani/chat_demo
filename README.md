@@ -1,3 +1,5 @@
+## 🔁 Chat & Dictionary Flow
+
 # Chat Demo (Flutter)
 
 A Flutter chat demo showcasing tabbed navigation, chat history, and a dictionary lookup on long-press.
@@ -52,6 +54,28 @@ flutter run
   - Fetches meaning using open-source Dictionary API
   - Displays result in a bottom sheet
   - Gracefully handles “no meaning found” cases
+
+ 
+### 💬 Chat Message Flow
+
+- User types a message and taps **Send**
+- Message is added locally as **Sender message**
+- UI updates immediately
+- Receiver API is called  
+  `GET https://dummyjson.com/comments?limit=10`
+- API returns a random comment
+- Response is parsed and added as **Receiver message**
+- Chat auto-scrolls to the latest message
+
+### Dictionary (Word Meaning) Flow
+
+- User long-presses on any word in a chat message
+- Selected word is cleaned (punctuation removed)
+- Dictionary API is called  
+  `GET https://api.dictionaryapi.dev/api/v2/entries/en/{word}`
+- API response is parsed (word, part of speech, definition)
+- Meaning is shown in a **bottom sheet**
+- If no meaning is found, a graceful error message is shown
 
 ## 🧪 Testing
 
