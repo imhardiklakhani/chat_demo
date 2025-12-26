@@ -4,6 +4,9 @@
 
 A Flutter chat demo showcasing tabbed navigation, chat history, and a dictionary lookup on long-press.
 
+## Project Structure
+👉 [View detailed structure](structure.md)
+
 ## Requirements
 
 - Flutter **3.29.2** (stable)
