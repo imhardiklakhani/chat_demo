@@ -11,4 +11,6 @@ class AppStrings {
   static const settings = 'Settings';
   static const addUser = 'Add User';
   static const userAdded = 'User added';
+
+  static String meaningNotFound = 'Meaning not found';
 }

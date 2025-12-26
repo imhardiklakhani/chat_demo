@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_sivi/features/chat/presentation/cubit/dictionary_cubit.dart';
+import 'package:my_sivi/features/chat/presentation/widgets/word_meaning_bottom_sheet.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../data/models/chat_message_model.dart';
@@ -24,18 +27,15 @@ class ChatMessageBubble extends StatelessWidget {
           if (!isSender) _avatar(context, isSender, userInitials),
           Flexible(
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-              decoration: BoxDecoration(
-                color: isSender
-                    ? AppColors.senderBubble
-                    : AppColors.receiverBubble,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Text(
-                message.text,
-                style: const TextStyle(fontSize: 14),
-              ),
-            ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                decoration: BoxDecoration(
+                  color: isSender
+                      ? AppColors.senderBubble
+                      : AppColors.receiverBubble,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: buildMessageText(context, message.text)),
           ),
           if (isSender) _avatar(context, isSender, 'Y'),
         ],
@@ -50,6 +50,46 @@ class ChatMessageBubble extends StatelessWidget {
           radius: 14,
           backgroundImage: !isSender ? NetworkImage(initials) : null,
           child: isSender ? Text(initials) : null),
+    );
+  }
+
+  Widget buildMessageText(BuildContext context, String text) {
+    final words = text.split(' ');
+
+    return Wrap(
+      children: words.map((word) {
+        return GestureDetector(
+          onLongPress: () {
+            final cleanWord = word.replaceAll(RegExp(r'[^\w]'), '');
+
+            if (cleanWord.isEmpty) return;
+
+            context.read<DictionaryCubit>().lookupWord(cleanWord);
+
+            showModalBottomSheet(
+              context: context,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(16),
+                ),
+              ),
+              builder: (sheetContext) {
+                return BlocProvider.value(
+                  value: context.read<DictionaryCubit>(),
+                  child: const WordMeaningBottomSheet(),
+                );
+              },
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(right: 4, bottom: 4),
+            child: Text(
+              '$word ',
+              style: const TextStyle(fontSize: 16),
+            ),
+          ),
+        );
+      }).toList(),
     );
   }
 }

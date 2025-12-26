@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/constants/app_strings.dart';
 import '../../../../shared_widgets/appbar_switcher.dart';
-import '../../../users/presentation/cubit/users_cubit.dart';
-import '../../../users/presentation/pages/users_page.dart';
+import '../../../history/data/repository/history_repository.dart';
 import '../../../history/presentation/cubit/history_cubit.dart';
 import '../../../history/presentation/pages/history_page.dart';
-import '../../../history/data/repository/history_repository.dart';
+import '../../../users/presentation/cubit/users_cubit.dart';
+import '../../../users/presentation/pages/users_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
